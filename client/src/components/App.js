@@ -4,6 +4,8 @@ import Checklogin from "./Checklogin"
 import Login from "./Login"
 
 import "../styles/form.css"
+import "../styles/dashboard.css"
+import Register from "./Register"
 
 function App(props) {
 
@@ -12,6 +14,7 @@ function App(props) {
         <Router>
           <Switch>
             <Route path="/login" component={Login} />
+            <Route path="/Register" component={Register} />
             <Route path="*" component={Checklogin} />
           </Switch>
         </Router>

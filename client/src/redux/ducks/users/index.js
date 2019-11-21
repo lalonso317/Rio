@@ -1,4 +1,3 @@
-// import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 
@@ -8,21 +7,21 @@ const LOGIN_FAILURE = "auth/LOGIN_FAILURE"
 const LOGOUT = "auth/LOGIN"
 
 const initalState = {
-username: "",
+username: '',
 isAuthenticated: false,
-loading: true
+loading: false
 
 
 }
 
-export default (state =initalState, action) =>{
+export default (state = initalState, action) =>{
     switch(action.type){
     case LOGIN_PENDING:
         return { ...state, loading: true}
     case LOGIN_SUCCESS:
-        return {...state, loading:false, isAuthenticated: true, username: action.payload}
+        return {...state, isAuthenticated: true,  loading:false, username: action.payload}
     case LOGIN_FAILURE:
-        return{ ...state, loading: false, isAuthenticatedL: false, username: ""}
+        return{ ...state, isAuthenticated: false, loading: false,  username: ''}
     case LOGOUT:
         return initalState
     default: 
@@ -31,9 +30,10 @@ export default (state =initalState, action) =>{
 }
 
 function login(username, password, dispatch){
+
     return new Promise((resolve, reject)=>{
         axios.post("/login", {username, password}).then(resp =>{
-        axios.defualts.headers.common = {Authorization: `Bearer ${resp.data.token}`}
+        axios.defaults.headers.common = { Authorization: `Bearer ${resp.data.token}`}
         dispatch({
             type: LOGIN_SUCCESS,
             payload: username
@@ -42,22 +42,24 @@ function login(username, password, dispatch){
 
         }).catch(e =>{
           dispatch({
-              type: LOGIN_FAILURE
-              })
-              reject()
+              type: LOGIN_FAILURE  
             })
-        }
-    )}
+            console.log('foobar')
+            reject()
+        })
+     })
+}
 
     
 function logout(){
-    axios.default.header.common = {Authorization:''}
+    axios.defaults.headers.common = {Authorization:''}
     return {type:LOGOUT}
 }
 
 export function useAuth(){
     const username = useSelector(appState => appState.authState.username)
     const isAuthenticated = useSelector(appState => appState.authState.isAuthenticated)
+    
     const dispatch = useDispatch()
     const signin = (username, password) =>{
     dispatch({type: LOGIN_PENDING})
