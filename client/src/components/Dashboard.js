@@ -12,7 +12,6 @@ const { messages, add } = useChat()
 function handleSubmit(e){
     e.preventDefault()
     add({message, username})
-
     setMessage('')
 }
 
@@ -58,17 +57,20 @@ function handleSubmit(e){
             </div>
         </aside>
         <div>
-        <div>
+            <form onSubmit={handleSubmit}>
+                <input 
+                type="text" 
+                placeholder="say something..."
+                value={message}
+                onChange={e => setMessage(e.target.value)}></input>
+                <button type="submit">Submit</button>
+            </form>
+
+            <div>
                 {messages.map((msg, i) =>(
                     <p key={i}>{msg.username}:{msg.message}</p>
-                ))}
+                ))} 
             </div>
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="say something..." value={message} onChange={e => setMessage(e.target.value)}></input>
-                <button type="submit">Submit</button>
-            </form> 
-        </div>
         </div>
     </div>
     )
