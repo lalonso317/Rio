@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
-
+import socket from "../../../lib/Socket"
 const LOGIN_PENDING = "auth/LOGIN_PENDING"
 const LOGIN_SUCCESS ="auth/LOGIN_SUCCESS"
 const LOGIN_FAILURE = "auth/LOGIN_FAILURE"
@@ -38,16 +38,15 @@ function login(username, password, dispatch){
             type: LOGIN_SUCCESS,
             payload: username
         })
+        socket.emit('login', username)
         resolve()
-
         }).catch(e =>{
           dispatch({
               type: LOGIN_FAILURE  
             })
-            console.log('foobar')
             reject()
         })
-     })
+    })
 }
 
     

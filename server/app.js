@@ -1,12 +1,16 @@
-const createError = require("http-errors")
 const express = require("express")
+const createError = require("http-errors")
 const userRouter = require("./routes/users")
 const protectedRouter = require('./routes/protected')
 const jwt = require("express-jwt")
 const config = require("config")
 const app = express()
+const server = require('http').Server(app)
+const io = require('socket.io')(server)
+require('./chat')(io)
 
-app.use(express.json())
+
+app.use(express.json()) 
 app.use(express.urlencoded({ extended: false }))
 
 app.use("/", userRouter)
@@ -31,6 +35,6 @@ app.use(function(err, req, res, next) {
   })
 })
 
-app.listen(8080, () => {
+server.listen(8080, () => {
   console.log("Listening on port 8080")
 })

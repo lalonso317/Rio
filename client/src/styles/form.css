@@ -7,34 +7,43 @@
     display: flex;
     flex-direction: column;
     margin: auto;
-    width: 400px;
+    width: 70%;
     align-content: center;
 }
+.formback{
+    background: #dfe5f5;
+    margin: auto;
+    width: 30%;
+}
 .user, .pass{
-    width: 400px;
+    width: 100%;
     height: 50px;
     outline: none;
     background: none;
     margin: 15px 0;
     color: black;
     font-size: 25px;
-    border: 1px solid black;
+    border: 2px solid black;
+    padding: 4px;
 }
 .sub{
     height: 40px;
     background: none;
-    border: 1px solid black;
+    border: 2px solid black;
     font-size: 25px;
     outline: none;
+    cursor: pointer;
 }
-.user:hover, .pass:hover{
+.user:hover, .pass:hover, .sub:hover{
     transition: 0.2s ease-in;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0,0,0);
+    color: white;
+    
 }
-.user:focus, .pass:focus, .sub:hover{
-    transition: 0.4s ease-in-out;
+.user:focus, .pass:focus, .sub:focus {
+    transition: 0.1s ease-in-out;
     background: black;
-    border: 1px solid white;
+    border: 3px solid white;
     color: white
 }
 .login p{
@@ -43,4 +52,26 @@
     padding: 0px;
     font-size: 30px;
     padding-top: 15px;
+}
+/* NEW USER */
+.newuser{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+.areyou{
+    margin-right: 15px;
+    font-size: 20px;
+
+}
+.clickhere{
+    margin-left: 10px;
+    width: 75px;
+    height: 30px;
+    cursor: pointer;
+    background: none;
+    border: 1px solid black;
+    font-size: 12px;
+    outline: none;
 }

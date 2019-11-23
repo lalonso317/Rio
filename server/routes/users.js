@@ -58,4 +58,31 @@ router.post('/login', (req, res, next) =>{
   })
 })
 
+// ADDING CHANNELS
+router.post('/channel', (req, res, next) =>{
+  const channel = req.body.channel
+  const description = req.body.description
+
+  const sql = 'INSERT INTO channels (channel, description) VALUES (?, ?)'
+
+  db.query(sql, [channel, description], (err, results, fields) =>{
+    if(err){
+      throw new Error(err)
+    }
+    res.json(results)
+  })
+})
+
+router.get('/channel', (req, res, next) =>{
+  const channel = req.body.channel
+  const description = req.body.description
+
+  const sql = `SELECT channel, description FROM channels`
+
+  db.query(sql, [channel, description], (err, results, fields) =>{
+    res.json(results)
+  })
+
+})
+
 module.exports = router

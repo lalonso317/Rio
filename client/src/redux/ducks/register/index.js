@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux"
 import axios from "axios"
 
 
@@ -24,16 +24,16 @@ function postUser(username, password, dispatch){
                 payload: resp.data
             })
             resolve()
-        }).catch( error => console.log(error))
-        reject()
+        }).catch(e =>{
+            reject()
+        })  
     })
 }
 
 export function usePosty(){
     const dispatch = useDispatch()
-    const user = useSelector(appState => appState.userState.user)
     const create = (username, password) =>{
-     return dispatch(postUser(username, password))
+     return postUser(username, password, dispatch)
     }
-    return { user, create}
+    return { create}
 }

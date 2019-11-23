@@ -1,10 +1,20 @@
-import React from 'react'
-import { useAuth } from "../hooks"
+import React, { useState } from 'react'
+import { useAuth, useChan, useChat } from "../hooks"
 import Icon from '../lib/Icon'
+import { Link } from 'react-router-dom'
 
 export default function Dashboard(props){
+const { username, signout} = useAuth()
+const { chann } = useChan()
+const [message, setMessage] = useState('')
+const { messages, add } = useChat()
 
-const { username, signout } = useAuth()
+function handleSubmit(e){
+    e.preventDefault()
+    add({message, username})
+
+    setMessage('')
+}
 
     return(
     <div>
@@ -26,7 +36,14 @@ const { username, signout } = useAuth()
             </div>
             <div>
                 <p>Channels</p>
-                <Icon icon="plus-circle"></Icon>
+                <Link to={'/Channels'}><Icon icon="plus-circle"></Icon></Link>
+                <div>
+                    {chann.map((item, i) =>(
+                        <div key={"channel" + i}>
+                            <p>{item.channel}</p>
+                        </div>
+                    ))}
+                </div>
             </div>
             <div>
                 <Icon icon="plus"></Icon>
@@ -40,6 +57,19 @@ const { username, signout } = useAuth()
                 </div>
             </div>
         </aside>
+        <div>
+        <div>
+                {messages.map((msg, i) =>(
+                    <p key={i}>{msg.username}:{msg.message}</p>
+                ))}
+            </div>
+        <div>
+            <form onSubmit={handleSubmit}>
+                <input type="text" placeholder="say something..." value={message} onChange={e => setMessage(e.target.value)}></input>
+                <button type="submit">Submit</button>
+            </form> 
+        </div>
+        </div>
     </div>
     )
 }
